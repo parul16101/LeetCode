@@ -1,0 +1,85 @@
+#include <iostream>
+using namespace std;
+
+class Stack{
+    int *arr;
+    int size;
+    int cap;
+    int top;
+    
+    public:
+        void push(int);
+        int pop();
+        bool isempty();
+        int peek();
+        bool isfull();
+        void display();
+    
+        Stack(int x)
+        {
+            arr = new int[x];
+            cap = x;
+            size = 0;
+            top = -1;
+        }
+};
+
+void Stack::push(int b)
+{
+    if(isfull())
+        return;
+    
+    top+=1;
+    arr[top] = b;
+    
+    size+=1;
+}
+
+int Stack::pop()
+{
+    if(isempty())
+        return -1;
+    
+    int p = arr[top];
+    top-=1;
+    size-=1;
+    
+    return p;
+}
+
+int Stack::peek()
+{
+    return arr[top];
+}
+
+bool Stack::isempty()
+{
+    return (top==-1);
+}
+
+bool Stack::isfull()
+{
+    return (size==cap);
+}
+
+void Stack::display()
+{
+    for(int i=top;i>=0;i--)
+        cout<<arr[i]<<" ";
+}
+
+int main()
+{
+    class Stack s(5);
+    s.push(1);
+    s.push(2);
+    s.push(3);
+    s.display();
+    cout<<endl;
+    cout<<s.pop();
+    cout<<endl;
+    s.display();
+    cout<<endl;
+    cout<<s.isfull();
+
+}
