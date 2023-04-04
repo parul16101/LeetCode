@@ -118,24 +118,24 @@ struct Node
 
 // function should print the nodes at k distance from root
 
-void kroot(struct Node *root, int k, vector<int> &ans)
+void fun(Node* root, int k, int i, vector<int> &ans)
 {
     if(root==NULL)
-    return;
-    
-    if(k==0)
+        return;
+    if(i==k)
     {
         ans.push_back(root->data);
         return;
     }
-    
-    kroot(root->left,k-1,ans);
-    kroot(root->right,k-1,ans);
+    fun(root->left,k,i+1,ans);
+    fun(root->right,k,i+1,ans);
 }
 
 vector<int> Kdistance(struct Node *root, int k)
 {
   vector<int> ans;
-  kroot(root,k,ans);
+  
+  int i=0;
+  fun(root,k,i,ans);
   return ans;
 }
