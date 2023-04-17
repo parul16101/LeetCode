@@ -117,25 +117,24 @@ struct Node
 }; */
 
 // function should print the nodes at k distance from root
-
-void fun(Node* root, int k, int i, vector<int> &ans)
+void fun(Node* root, int l, vector<int> &ans)
 {
     if(root==NULL)
         return;
-    if(i==k)
-    {
-        ans.push_back(root->data);
-        return;
-    }
-    fun(root->left,k,i+1,ans);
-    fun(root->right,k,i+1,ans);
+    if(l==0)
+        {
+            ans.push_back(root->data);
+            return;
+        }
+    fun(root->left,l-1,ans);
+    fun(root->right,l-1,ans);
 }
 
 vector<int> Kdistance(struct Node *root, int k)
 {
+  int l = k;
   vector<int> ans;
-  
-  int i=0;
-  fun(root,k,i,ans);
+  fun(root,l,ans);
   return ans;
+  
 }
