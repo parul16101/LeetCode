@@ -12,7 +12,7 @@ class Solution
     {
         long n = v.size();
         long l = 0, h = n-1;
-        
+        long ans = -1;
         while(l<=h)
         {
             long m = (l+h)/2;
@@ -21,26 +21,22 @@ class Solution
             
             if(temp==x)
             {
-                if(m==0)
-                    return m;
-                else if(v[m-1]!=v[m])
-                    return m;
-                else
-                    h = m-1;
+                ans = m;
+                h = m-1;
             }
             else if(temp<x)
                 l = m+1;    
             else
                  h = m-1;
         }
-        return -1;
+        return ans;
     }
     
     long bsright(vector<long long> v, long long x)
     {
         long n = v.size();
         long l = 0, h = n-1;
-        
+        long ans = -1;
         while(l<=h)
         {
             long m = (l+h)/2;
@@ -49,19 +45,15 @@ class Solution
             
             if(temp==x)
             {
-                if(m==n-1)
-                    return m;
-                else if(v[m+1]!=v[m])
-                    return m;
-                else
-                    l = m+1;
+                ans = m;
+                l = m+1;
             }
             else if(temp<x)
                 l = m+1;    
             else
                  h = m-1;
         }
-        return -1;
+        return ans;
     }
     
     pair<long,long> indexes(vector<long long> v, long long x)
