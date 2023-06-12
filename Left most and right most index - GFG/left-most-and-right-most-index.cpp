@@ -8,64 +8,59 @@ class Solution
 {
     public:
     
-    long bsleft(vector<long long> v, long long x)
+    int leftt(vector<long long> v, long long n, long long x)
     {
-        long n = v.size();
-        long l = 0, h = n-1;
-        long ans = -1;
+        int l = 0, h = n-1;
+        int ans = -1;
         while(l<=h)
         {
-            long m = (l+h)/2;
-            
-            long temp = v[m];
-            
-            if(temp==x)
+            int m = (l+h)/2;
+            if(v[m]==x)
             {
                 ans = m;
                 h = m-1;
             }
-            else if(temp<x)
-                l = m+1;    
-            else
-                 h = m-1;
+            else if(v[m]<x)
+                l = m+1;
+            else 
+                h = m-1;
         }
         return ans;
     }
     
-    long bsright(vector<long long> v, long long x)
+    int rightt(vector<long long> v, long long n, long long x)
     {
-        long n = v.size();
-        long l = 0, h = n-1;
-        long ans = -1;
+        int l = 0, h = n-1;
+        int ans = -1;
         while(l<=h)
         {
-            long m = (l+h)/2;
-            
-            long temp = v[m];
-            
-            if(temp==x)
+            int m = (l+h)/2;
+            if(v[m]==x)
             {
                 ans = m;
                 l = m+1;
             }
-            else if(temp<x)
-                l = m+1;    
-            else
-                 h = m-1;
+            else if(v[m]<x)
+                l = m+1;
+            else 
+                h = m-1;
         }
         return ans;
     }
     
     pair<long,long> indexes(vector<long long> v, long long x)
     {
-        long left = 0, right = 0;
-        pair<long,long> ans;
+        long long n = v.size();
+        int left = -1;
+        left = leftt(v,n,x);
+        int right = -1;
+        right = rightt(v,n,x);
         
-        left = bsleft(v,x);
-        right = bsright(v,x);
-        ans.first = left;
-        ans.second = right;
-        return ans;
+        pair<long,long> p;
+        p.first = left;
+        p.second = right;
+        return p;
+        
     }
 };
 
