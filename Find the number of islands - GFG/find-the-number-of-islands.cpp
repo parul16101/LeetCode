@@ -6,44 +6,40 @@ using namespace std;
 class Solution {
   public:
     // Function to find the number of islands.
-    
-    void dfs(vector<vector<char>>& grid, int i, int j, vector<vector<int>> &vis)
+    void dfs(int i, int j, vector<vector<char>>& grid, vector<vector<int>> &vis, int row, int col)
     {
         vis[i][j] = 1;
-        int r = grid.size(), c = grid[0].size();
-         
-        for(int u=-1;u<=1;u++)
+        
+        for(int x=-1;x<=1;x++)
         {
-            for(int v=-1;v<=1;v++)
+            for(int y=-1;y<=1;y++)
             {
-                int nrow = i+u;
-                int ncol = j+v;
+                int nrow = i+x;
+                int ncol = j+y;
                 
-                if(0<=nrow && nrow<r && 0<=ncol && ncol<c && vis[nrow][ncol]==0 && grid[nrow][ncol]=='1')
-                    dfs(grid,nrow,ncol,vis);
+                if(nrow>=0 && nrow<row && ncol>=0 && ncol<col && grid[nrow][ncol]=='1' && vis[nrow][ncol]==0)
+                    dfs(nrow,ncol,grid,vis,row,col);
             }
         }
-            
-        
     }
     
     int numIslands(vector<vector<char>>& grid) {
-        int r = grid.size(), c = grid[0].size();
-        vector<vector<int>> vis(r, vector<int>(c,0));
-        int count = 0;
-        
-        for(int i=0;i<r;i++)
-        {
-            for(int j=0;j<c;j++)
-            {
-                if((vis[i][j]==0) && (grid[i][j]=='1'))
+       int row = grid.size(); int col = grid[0].size();
+       vector<vector<int>> vis(row, vector<int>(col,0));
+       int cnt = 0;
+       
+       for(int i=0;i<row;i++)
+       {
+           for(int j=0;j<col;j++)
+           {
+               if(vis[i][j]==0 && (grid[i][j]=='1'))
                 {
-                    count += 1;
-                    dfs(grid,i,j,vis);
+                    cnt+=1;
+                    dfs(i,j,grid,vis,row,col);
                 }
-            }
-        }
-        return count;
+           }
+       }
+       return cnt;
     }
 };
 
