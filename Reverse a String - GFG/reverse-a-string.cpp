@@ -13,12 +13,14 @@ using namespace std;
 string reverseWord(string str){
     
   int n = str.size();
-  
   int l = 0, h = n-1;
   
-  while(l<=h)
+  while(l<h)
   {
-      swap(str[l],str[h]);
+      char t = str[l];
+      str[l] = str[h];
+      str[h] = t;
+      
       l+=1;
       h-=1;
   }
