@@ -110,20 +110,43 @@ struct Node {
 class Solution{
   public:
     // returns the inorder successor of the Node x in BST (rooted at 'root')
+    void inorder(Node* root,Node* x,Node* &ans,bool &b)
+    {
+        if(ans != NULL)
+        return;
+        if(root == NULL)
+        return;
+        inorder(root->left,x,ans,b);
+        
+        if(b)
+        {
+            //  cout<<'b';
+            ans = root;
+            b = false;
+            return ;
+        }
+        else
+        {
+            if(root->data == x->data)
+            {
+                //  cout<<'a';
+                b = true;
+            }
+        }
+        // cout<<root->data<<' ';
+        
+        inorder(root->right,x,ans,b);
+    }
+    // returns the inorder successor of the Node x in BST (rooted at 'root')
     Node * inOrderSuccessor(Node *root, Node *x)
     {
-       Node* ans = NULL;
-    
-        while(root!=NULL)
-        {
-            if(root->data>x->data)
-            {
-                ans = root;
-                root = root->left;
-            }
-            else
-               root = root->right;
-        }
+        //Your code here
+        Node* ans = NULL;
+        
+        bool b = false;
+        
+        inorder(root,x,ans,b);
+        
         return ans;
     }
 };
