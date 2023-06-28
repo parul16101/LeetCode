@@ -9,7 +9,6 @@ using namespace std;
 
 class Solution{
 public:
-
     void printpattern(int N, int x, bool &f, vector<int> &ans)
     {
         if(x==N)
@@ -17,25 +16,26 @@ public:
             if(f==false)
             {
                 ans.push_back(x);
-                //f = true;
                 printpattern(N,x-5,f,ans);
             }
             else
-                {
-                    ans.push_back(x);
-                    return;
-                }
+            {
+                ans.push_back(x);
+                return;
+            }
         }
-        
         else if(x>0)
         {
-            ans.push_back(x);
-            
-            if(f)
-                printpattern(N,x+5,f,ans);
-            else 
-                printpattern(N,x-5,f,ans);
-                
+            if(f==false)
+                {
+                    ans.push_back(x);
+                    printpattern(N,x-5,f,ans);
+                }
+            else
+                {
+                    ans.push_back(x);
+                    printpattern(N,x+5,f,ans);
+                }
         }
         else
         {
@@ -43,7 +43,6 @@ public:
             f = true;
             printpattern(N,x+5,f,ans);
         }
-            
     }
             
         
