@@ -11,31 +11,29 @@ using namespace std;
 class Solution
 {
     public:
-    void getsubset(vector<int>& A, int i, int n, vector<int> temp, vector<vector<int>> &ans)
+    
+    void fun(vector<int> arr, int level, vector<int> temp, vector<vector<int>> &ans, int n)
     {
-        if(i==n)
+        if(level==n)
         {
             ans.push_back(temp);
             return;
         }
-        getsubset(A,i+1,n,temp,ans);
-        temp.push_back(A[i]);
-        getsubset(A,i+1,n,temp,ans);
-        
+        fun(arr,level+1,temp,ans,n);
+        temp.push_back(arr[level]);
+        fun(arr,level+1,temp,ans,n);
     }
-        
+
+    
     vector<vector<int> > subsets(vector<int>& A)
     {
-        int n = A.size();
-        int i = 0;
         vector<vector<int>> ans;
         vector<int> temp;
-        
-        getsubset(A,i,n,temp,ans);
-        
+        int level = 0;
+        int n = A.size();
+        fun(A,level,temp,ans,n);
         sort(ans.begin(), ans.end());
         return ans;
-        
     }
 };
 
