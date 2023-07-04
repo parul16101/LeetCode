@@ -9,22 +9,16 @@ using namespace std;
 
 // } Driver Code Ends
 //User function Template for C++
+string rev(string str, int n)
+{
+    if(n==0)
+        return "";
+    return str[n-1]+rev(str.substr(0,n-1), n-1);
+}
 
 string reverseWord(string str){
     
-  int n = str.size();
-  int l = 0, h = n-1;
-  
-  while(l<h)
-  {
-      char t = str[l];
-      str[l] = str[h];
-      str[h] = t;
-      
-      l+=1;
-      h-=1;
-  }
-  return str;
+    return rev(str,str.size());
 }
 
 
