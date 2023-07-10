@@ -5,7 +5,7 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
 public:
-    void dfs(int s, int d, vector<vector<int>> &adj, vector<int> &vis, int &c)
+    void dfs(int s, int d, vector<vector<int>> &adj, vector<int> vis, int &c)
     {
         if(s==d)
         {
@@ -20,7 +20,6 @@ public:
             if(vis[i]==0)
                 dfs(i,d,adj,vis,c);
         }
-        vis[s] = 0;
     }
 
 	int possible_paths(vector<vector<int>>edges, int n, int s, int d){
