@@ -5,35 +5,40 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
 public:
-
-    void dfs(int s, map<int,vector<int>> adj, int d, int &count)
+    void dfs(int s, int d, vector<vector<int>> &adj, vector<int> &vis, int &c)
     {
         if(s==d)
-            {
-                count+=1;
-                return;
-            }
-            
+        {
+            c+=1;
+            return;
+        }
+        
+        vis[s] = 1;
+        
         for(auto i:adj[s])
         {
-            dfs(i,adj,d,count);
+            if(vis[i]==0)
+                dfs(i,d,adj,vis,c);
         }
+        vis[s] = 0;
     }
-    
+
 	int possible_paths(vector<vector<int>>edges, int n, int s, int d){
-	    
-	    int count = 0;
-	    
-	    map<int,vector<int>> adj;
-	    for(int i=0;i<edges.size();i++)
-	    {
-	        adj[edges[i][0]].push_back(edges[i][1]);
-	    }
-	    
-	    dfs(s,adj,d,count);
-	    
-	    return count;
-	    
+	   int count = 0;
+	   vector<int> vis(n,0);
+	   
+	   vector<vector<int>> adj(n);
+	   
+	   for(int i=0;i<edges.size();i++)
+	   {
+	       int a = edges[i][0];
+	       int b = edges[i][1];
+	       
+	       adj[a].push_back(b);
+	   }
+	   
+	   dfs(s,d,adj,vis,count);
+	   return count;
 	}
 };
 
