@@ -23,12 +23,12 @@ class Solution
 {
     public:
     //Function to check whether a Binary Tree is BST or not.
-    bool fun(Node* root, int mini, int maxi) 
+    bool bst(Node* root, int mini, int maxi)
     {
         if(root==NULL)
             return true;
-        return (root->data>mini && root->data<maxi) && fun(root->left,mini,root->data)
-        && fun(root->right,root->data,maxi);
+       return (mini<root->data && root->data<maxi) && bst(root->left,mini,root->data)
+        && bst(root->right,root->data,maxi);
     }
     
     bool isBST(Node* root) 
@@ -36,7 +36,7 @@ class Solution
         int mini = INT_MIN;
         int maxi = INT_MAX;
         
-        return fun(root,mini,maxi);
+        return bst(root,mini,maxi);
     }
 };
 
