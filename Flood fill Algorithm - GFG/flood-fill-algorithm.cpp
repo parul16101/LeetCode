@@ -5,38 +5,42 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
 public:
-
-    bool isvalid(int nrow, int ncol, int r, int c)
+    bool isValid(int nrow, int ncol, int row, int col)
     {
-        return (nrow>=0 && nrow<r && ncol>=0 && ncol<c);
+        return (nrow>=0 && nrow<row && ncol>=0 && ncol<col);
     }
     
-    void dfs(int sr, int sc,vector<vector<int>>& image,int newColor,int b,vector<vector<int>> &vis,vector<vector<int>> &ans )
+    void dfs(int i, int j, int iC, int nC, vector<vector<int>> &vis, vector<vector<int>> image,
+    vector<vector<int>> &ans)
     {
-        vis[sr][sc] = 1;
-        ans[sr][sc] = newColor;
-        int r = image.size(), c = image[0].size();
-        
-        int u[4] = {-1,0,1,0};
-        int v[4] = {0,1,0,-1};
-        
-        for(int i=0;i<4;i++)
-        {
-                int nrow = sr+u[i]; int ncol = sc+v[i];
-                
-                if(isvalid(nrow,ncol,r,c) && vis[nrow][ncol]==0 && image[nrow][ncol]==b)
-                        dfs(nrow,ncol,image,newColor,b,vis,ans);
-                    
-        }
-        
-    }
-
-    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
-        int b = image[sr][sc];
         int row = image.size(); int col = image[0].size();
-        vector<vector<int>> vis(row,vector<int> (col,0));
-        vector<vector<int>> ans = image;
-        dfs(sr,sc,image,newColor,b,vis,ans);
+        ans[i][j] = nC;
+        vis[i][j] = 1;
+        
+        int x[4] = {-1,0,+1,0};
+        int y[4] = {0,+1,0,-1};
+        for(int k=0;k<4;k++)
+        {
+            int nrow = i+x[k];
+            int ncol = j+y[k];
+            
+            if(isValid(nrow,ncol,row,col) && image[nrow][ncol]==iC && vis[nrow][ncol]==0)
+            {
+                dfs(nrow,ncol,iC,nC,vis,image,ans);
+            }
+        }
+    }
+    
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+        int row = image.size(); int col = image[0].size();
+        vector<vector<int>> ans(row,vector<int>(col,0));
+        ans = image;
+        
+        vector<vector<int>> vis(row,vector<int>(col,0));
+        
+        int iniColor = image[sr][sc];
+        
+        dfs(sr,sc,iniColor,newColor,vis,image,ans);
         return ans;
     }
 };
