@@ -10,18 +10,19 @@ using namespace std;
 class Solution{   
 public:
     int getPairsCount(int arr[], int n, int k) {
-        
-        unordered_map<int,int> m;
-        int ans = 0;
-        for(int i=0;i<n;i++)
-        {
-            if(m.find(k-arr[i])!=m.end())
-            {
-                ans += m[k-arr[i]];
-            }
-            m[arr[i]] += 1;
-        }
-        return ans;
+       unordered_map<int,int> m;
+       int ans = 0;
+       for(int i=0;i<n;i++)
+       {
+           if(m.find(k-arr[i])==m.end())    
+                m[arr[i]]+=1;
+            else
+                {
+                    ans += m[k-arr[i]];
+                    m[arr[i]]+=1;
+                }
+       }
+       return ans;
     }
 };
 
