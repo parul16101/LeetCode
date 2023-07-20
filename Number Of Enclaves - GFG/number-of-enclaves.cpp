@@ -10,33 +10,31 @@ using namespace std;
 
 class Solution {
   public:
-   bool isValid(int nrow, int ncol, int row, int col)
+    bool isValid(int nrow, int ncol, int row, int col)
     {
         return (nrow>=0 && nrow<row && ncol>=0 && ncol<col);
     }
-    
+  
     int numberOfEnclaves(vector<vector<int>> &grid) {
         queue<pair<int,int>> q;
-        int row = grid.size(), col = grid[0].size();
-        vector<vector<int>> vis(row,vector<int> (col,0));
+        int row = grid.size(); int col = grid[0].size();
+        vector<vector<int>> vis(row,vector<int>(col,0));
         
         for(int i=0;i<row;i++)
         {
             for(int j=0;j<col;j++)
             {
                 if(i==0 || (i==row-1) || j==0 || (j==col-1))
-                    {
-                        if(grid[i][j]==1)
-                        {
-                            q.push({i,j});
-                            vis[i][j] = 1;
-                        }
-                    }
+                {
+                    if(grid[i][j]==1)
+                    {q.push({i,j});
+                    vis[i][j] = 1;}
+                }
             }
         }
         
-        int x[4] = {-1,0,+1,0};
-        int y[4] = {0,+1,0,-1};
+        int u[4] = {-1,0,+1,0};
+        int v[4] = {0,+1,0,-1};
         
         while(!q.empty())
         {
@@ -44,30 +42,30 @@ class Solution {
             int b = q.front().second;
             q.pop();
             
-            for(int k=0;k<4;k++)
+            for(int i=0;i<4;i++)
             {
-                int nrow = a+x[k];
-                int ncol = b+y[k];
-                
-                if(isValid(nrow,ncol,row,col) && grid[nrow][ncol]==1 && vis[nrow][ncol]==0)
-                {
-                    q.push({nrow,ncol});
-                    vis[nrow][ncol] = 1;
-                }
-                
+                 int nrow = a+u[i];
+                 int ncol = b+v[i];
+                 
+                 if(isValid(nrow,ncol,row,col) && vis[nrow][ncol]==0 && grid[nrow][ncol]==1)
+                 {
+                     vis[nrow][ncol] = 1;
+                     q.push({nrow,ncol});
+                 }
             }
         }
+        int res = 0;
         
-        int count = 0;
         for(int i=1;i<row;i++)
         {
             for(int j=1;j<col;j++)
             {
-                if(grid[i][j]==1 && vis[i][j]==0)
-                    count+=1;
+                if(vis[i][j]==0 && grid[i][j]==1)
+                    res+=1;
             }
         }
-        return count;
+        return res;
+        
     }
 };
 
