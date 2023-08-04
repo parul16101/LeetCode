@@ -6,40 +6,49 @@ using namespace std;
 class Solution {
   public:
     // Function to find the number of islands.
-    void dfs(int i, int j, vector<vector<char>>& grid, vector<vector<int>> &vis, int row, int col)
+    bool isValid(int nrow, int ncol, int a, int b)
+    {
+        return (0<=nrow && nrow<a && 0<=ncol && ncol<b);
+    }
+    
+    void dfs(int i, int j, vector<vector<char>>& grid, vector<vector<int>> &vis)
     {
         vis[i][j] = 1;
+        int row = grid.size();
+        int col = grid[0].size();
         
-        for(int x=-1;x<=1;x++)
+        for(int a=-1;a<=1;a++)
         {
-            for(int y=-1;y<=1;y++)
+            for(int b=-1;b<=1;b++)
             {
-                int nrow = i+x;
-                int ncol = j+y;
+                int nrow = i+a;
+                int ncol = j+b;
                 
-                if(nrow>=0 && nrow<row && ncol>=0 && ncol<col && grid[nrow][ncol]=='1' && vis[nrow][ncol]==0)
-                    dfs(nrow,ncol,grid,vis,row,col);
+                if(isValid(nrow,ncol,row,col) && grid[nrow][ncol]=='1' && vis[nrow][ncol]==0)
+                    dfs(nrow,ncol,grid,vis);
             }
         }
     }
     
     int numIslands(vector<vector<char>>& grid) {
-       int row = grid.size(); int col = grid[0].size();
-       vector<vector<int>> vis(row, vector<int>(col,0));
-       int cnt = 0;
-       
-       for(int i=0;i<row;i++)
-       {
-           for(int j=0;j<col;j++)
-           {
-               if(vis[i][j]==0 && (grid[i][j]=='1'))
+        int row = grid.size();
+        int col = grid[0].size();
+        
+        vector<vector<int>> vis(row, vector<int>(col,0));
+        int count = 0;
+        
+        for(int i=0;i<row;i++)
+        {
+            for(int j=0;j<col;j++)
+            {
+                if(grid[i][j]=='1' &&vis[i][j]==0)
                 {
-                    cnt+=1;
-                    dfs(i,j,grid,vis,row,col);
+                    count+=1;
+                    dfs(i,j,grid,vis);
                 }
-           }
-       }
-       return cnt;
+            }
+        }
+        return count;
     }
 };
 
