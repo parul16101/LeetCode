@@ -11,18 +11,21 @@ class Solution{
     { 
        
        unordered_map<int,int> m;
-       int ans = 0;
        
        for(int i=n;i>=0;i--)
        {
            m[arr[i]] += 1;
            
+       }
+       
+       for(int i=0;i<n;i++)
+       {
            if(m[arr[i]]==1)
-                ans = arr[i];
+            return arr[i];
        }
        
        
-       return ans;
+       return 0;
         
     } 
   
