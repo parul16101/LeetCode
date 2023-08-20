@@ -13,27 +13,27 @@ class Solution
   public:
     //Function to check if a string is Pangram or not.
     bool checkPangram (string &str) {
-        vector<char> temp(26,0);
+        
         int t = int('a')-int('A');
         
-        int n = str.size();
-        for(int i=0;i<n;i++)
+        vector<bool> arr(26,false);
+        
+        for(int i=0;i<str.size();i++)
         {
             if(int('a')<=int(str[i]) && int(str[i])<=int('z'))
-                temp[int(str[i])-int('a')] = 1;
-            else if (int('A')<=int(str[i]) && int(str[i])<=int('Z'))
+                arr[int(str[i])-int('a')] = true;
+            else if(int('A')<=int(str[i]) && int(str[i])<=int('Z'))
                 {
-                    int c = int(str[i])+t;
-                    temp[c-int('a')] = 1;
+                    arr[(int(str[i])+t)-int('a')] = true;
                 }
         }
         
         for(int i=0;i<26;i++)
         {
-            if(temp[i]==0)
-                return 0;
+            if(arr[i]==false)
+                return false;
         }
-        return 1;
+        return true;
     }
 
 };
