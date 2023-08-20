@@ -6,47 +6,48 @@ using namespace std;
 class Solution {
   public:
     // Function to find the number of islands.
-    bool isValid(int nrow, int ncol, int a, int b)
+    bool isValid(int nrow, int ncol, int row, int col)
     {
-        return (0<=nrow && nrow<a && 0<=ncol && ncol<b);
+        return (0<=nrow && nrow<row && 0<=ncol && ncol<col);
     }
     
     void dfs(int i, int j, vector<vector<char>>& grid, vector<vector<int>> &vis)
     {
-        vis[i][j] = 1;
-        int row = grid.size();
-        int col = grid[0].size();
+         int row = grid.size(), col = grid[0].size();
+         vis[i][j] = 1;
+         
+         for(int u=-1;u<=1;u++)
+         {
+             for(int v=-1;v<=1;v++)
+             {
+                 int nrow = i+u;
+                 int ncol = j+v;
+                 
+                 if(isValid(nrow,ncol,row,col) && grid[nrow][ncol]=='1' && vis[nrow][ncol]==0)
+                 {
+                     dfs(nrow,ncol,grid,vis);
+                 }
+             }
+         }
         
-        for(int a=-1;a<=1;a++)
-        {
-            for(int b=-1;b<=1;b++)
-            {
-                int nrow = i+a;
-                int ncol = j+b;
-                
-                if(isValid(nrow,ncol,row,col) && grid[nrow][ncol]=='1' && vis[nrow][ncol]==0)
-                    dfs(nrow,ncol,grid,vis);
-            }
-        }
     }
     
     int numIslands(vector<vector<char>>& grid) {
-        int row = grid.size();
-        int col = grid[0].size();
+        int row = grid.size(), col = grid[0].size();
+        vector<vector<int>> vis(row,vector<int> (col,0));
         
-        vector<vector<int>> vis(row, vector<int>(col,0));
         int count = 0;
         
         for(int i=0;i<row;i++)
         {
-            for(int j=0;j<col;j++)
-            {
-                if(grid[i][j]=='1' &&vis[i][j]==0)
-                {
-                    count+=1;
-                    dfs(i,j,grid,vis);
-                }
-            }
+         for(int j=0;j<col;j++)
+         {
+             if(grid[i][j]=='1' && vis[i][j]==0)
+             {
+                 count+=1;
+                 dfs(i,j,grid,vis);
+             }
+         }
         }
         return count;
     }
