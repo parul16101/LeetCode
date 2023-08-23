@@ -13,25 +13,28 @@ class Solution
        //min heap of pair <dist,node>
        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
        vector<int> dist(V,INT_MAX);
+       queue<pair<int,int>> q;
        
        dist[S] = 0;
-       pq.push({0,S});
        
-       while(!pq.empty())
+       q.push({0,S});
+       
+       while(!q.empty())
        {
-           int edgeWt = pq.top().first;
-           int node = pq.top().second;
-           pq.pop();
+           int dis = q.front().first;
+           int node = q.front().second;
+           q.pop();
            
-           for(auto j:adj[node])
+           for(auto it:adj[node])
            {
-               int distGiven = j[1];
-               int nodeGiven = j[0];
+               int d = it[1];
+               int n = it[0];
                
-               if(dist[nodeGiven]>distGiven+edgeWt)
-                   { dist[nodeGiven] = distGiven+edgeWt; 
-                      pq.push({dist[nodeGiven], nodeGiven});
-                   }
+               if(dist[n]>d+dis)
+               {
+                   dist[n] = d+dis;
+                   q.push({dist[n], n});
+               }
            }
        }
        return dist;
