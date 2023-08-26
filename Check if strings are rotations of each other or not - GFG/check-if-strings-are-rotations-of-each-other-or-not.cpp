@@ -11,20 +11,23 @@ class Solution
     //Function to check if two strings are rotations of each other or not.
     bool areRotations(string s1,string s2)
     {
-        int n = s1.size();
-        int m = s2.size();
+       int n = s1.size();
+       int m = s2.size();
+       
+       if(n!=m)
+        return 0;
         
-        if(n!=m)
-            return false;
-            
-        s1 += s1;
-            
-        for(int i=0;i<=n+1;i++)
-        {
-            if(s1.substr(i,n)==s2)
-                return true;
-        }
-        return false;
+       s2 = s2+s2;
+       
+       int j=0;
+       while(j<=n)
+       {
+           if(s2.substr(j,n)==s1)
+                return 1;
+            j+=1;
+       }
+       return 0;
+       
     }
 };
 
