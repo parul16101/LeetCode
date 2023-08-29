@@ -10,34 +10,33 @@ class Solution
     //from the source vertex S.
     vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
-       //min heap of pair <dist,node>
-       priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
-       vector<int> dist(V,INT_MAX);
-       queue<pair<int,int>> q;
+       //Djiktra = min heap pq, dist vector with inf dist
+        
+       priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>> > pq;
+       vector<int> dis(V,INT_MAX);
        
-       dist[S] = 0;
+       pq.push({0,S});  //pq = (dist,node)
+       dis[S] = 0;
        
-       q.push({0,S});
-       
-       while(!q.empty())
+       while(!pq.empty())
        {
-           int dis = q.front().first;
-           int node = q.front().second;
-           q.pop();
+           int dist = pq.top().first;
+           int node = pq.top().second;
+           pq.pop();
            
-           for(auto it:adj[node])
+           for(auto i:adj[node])
            {
-               int d = it[1];
-               int n = it[0];
+               int newNode = i[0];
+               int newDist = i[1];
                
-               if(dist[n]>d+dis)
+               if(dis[newNode]>dist+newDist)
                {
-                   dist[n] = d+dis;
-                   q.push({dist[n], n});
+                   dis[newNode]=dist+newDist;
+                   pq.push({dis[newNode], newNode});     //imp
                }
            }
        }
-       return dist;
+       return dis;
     }
 };
 
