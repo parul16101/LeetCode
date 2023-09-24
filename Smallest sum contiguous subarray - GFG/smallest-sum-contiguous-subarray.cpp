@@ -11,49 +11,23 @@ using namespace std;
 class Solution{
   public:
   int smallestSumSubarray(vector<int>& a){
-      int pos = 0; //
-      int neg = 0, ans = INT_MIN;
-      int anss = INT_MAX;
       int n = a.size();
+      
       for(int i=0;i<n;i++)
-      {
-          if(a[i]<0)
-          {
-              neg = 1;
-              break;
-          }
-          else
-            {pos+=1;
-             anss = min(anss,a[i]);
-            }
-      }
-      
-      if(pos==n)
-      {
-          return anss;
-      }
-      
+        a[i] = -a[i];
+        
+      int ans = INT_MIN;
       int presum = 0;
-      for(int i=0;i<n;i++)
-      {
-          a[i] = -1*a[i];
-      }
-      
-      
       for(int i=0;i<n;i++)
       {
           presum += a[i];
           
+          ans = max(presum,ans);
+          
           if(presum<0)
             presum = 0;
-            
-         ans = max(ans,presum);
-          
-          
       }
-      
-      return -1*ans;
-      
+      return -ans;
   }
 };
 
