@@ -12,24 +12,28 @@ class Solution{
     {
         sort(A,A+n);
         
-        for(int i=0;i<n;i++)
+        for(int i=0;i<=n-3;i++)
         {
+            int first = A[i];
+            
             int j = i+1;
             int k = n-1;
             
             while(j<k)
             {
-                int sum = A[j]+A[k];
+                int second = A[j]+A[k];
                 
-                if(A[i]+sum==X)
-                    return 1;
-                else if(A[i]+sum>X)
-                    k-=1;
-                else
+                int sum = first+second;
+                
+                if(sum==X)
+                    return true;
+                else if(sum<X)
                     j+=1;
+                else
+                    k-=1;
             }
         }
-        return 0;
+        return false;
     }
 
 };
