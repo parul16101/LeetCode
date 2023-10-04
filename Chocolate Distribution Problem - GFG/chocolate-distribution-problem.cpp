@@ -10,19 +10,13 @@ class Solution{
         sort(a.begin(), a.end());
         
         long long ans = INT_MAX;
-        long long temp = 0;
-        
-        long long i=0, j=m-1;
-        
-        while(j<n)
+        for(long long i=m-1;i<n;i++)
         {
-            temp = a[j]-a[i];
-            ans = min(ans,temp);
-            i+=1;
-            j+=1;
+            ans = min(ans,a[i]-a[i-m+1]);
         }
         return ans;
         
+    
     }   
 };
 
