@@ -29,20 +29,23 @@ int main() {
 
 
 string isSubset(int a1[], int a2[], int n, int m) {
-    if(m>n)
-        return "No";
-    unordered_map<int,int> mm;
+    unordered_map<int,int> mp;
     for(int i=0;i<n;i++)
     {
-        mm[a1[i]]+=1;
+        mp[a1[i]]+=1;
     }
     
-    for(int i=0;i<m;i++)
-    {
-        if(mm.find(a2[i])==mm.end() || mm[a2[i]]<=0)
+     for(int i=0;i<m;i++)
+     {
+         if(mp.find(a2[i])==mp.end())
             return "No";
         else
-            mm[a2[i]]-=1;
-    }
-    return "Yes";
+        {
+            mp[a2[i]] -= 1;
+            
+            if(mp[a2[i]]==0)
+                mp.erase(a2[i]);
+        }
+     }
+     return "Yes";
 }
