@@ -14,7 +14,7 @@ public:
     int size(TreeNode* root, int &sum)
     {
         if(root==NULL)
-            return INT_MIN;
+            return 0;
         
         
         int lh = max(0,size(root->left,sum));
