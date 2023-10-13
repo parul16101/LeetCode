@@ -9,22 +9,22 @@ using namespace std;
 
 class Solution{   
 public:
+    void reverse(int arr[], int i, int j)
+    {
+        while(i<=j)
+        {
+            swap(arr[i],arr[j]);
+            i+=1;
+            j-=1;
+        }
+    }
+
     void leftRotate(int arr[], int n, int d) {
-       vector<int> temp;
-       for(int i=0;i<d;i++)
-            temp.push_back(arr[i]);
         
-        for(int i=d;i<n;i++)
-        {
-            arr[i-d] = arr[i]; 
-        }
+        reverse(arr,0,d-1);
+        reverse(arr,d,n-1);
+        reverse(arr,0,n-1);
         
-        int j = 0;
-        for(int i=n-d;i<n;i++)
-        {
-            arr[i] = temp[j];
-            j+=1;
-        }
     }
 };
 
