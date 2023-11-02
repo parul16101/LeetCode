@@ -9,25 +9,31 @@ using namespace std;
 
 class Solution {
   public:
-    int palindrome(string s)
+    bool checkPalin(int x)
     {
-        if(s.size()==0 || s.size()==1)
-            return 1;
-        if(s[0]!=s[s.size()-1])
-            return 0;
-        return palindrome(s.substr(1,s.size()-2));
+        string temp = to_string(x);
+        int n = temp.size();
+        int low = 0, high = n-1;
+        while(low<=high)
+        {
+            if(temp[low]!=temp[high])
+                return false;
+            low+=1;
+            high-=1;
+        }
+        return true;
     }
-    
+  
     int isDigitSumPalindrome(int N) {
-        int digit = 0;
+        int sum = 0, rem = 0;
         while(N)
         {
-            digit += N%10;
+            rem = N%10;
+            sum += rem;
             N = N/10;
         }
         
-        string s = to_string(digit);
-        return palindrome(s);
+        return checkPalin(sum);
     }
 };
 
