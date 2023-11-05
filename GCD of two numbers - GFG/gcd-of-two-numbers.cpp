@@ -7,16 +7,16 @@ using namespace std;
 class Solution
 {
 	public:
-    int gcd(int a, int b) 
+    int gcd(int A, int B) 
 	{ 
-	    if(b==0)
-	        return a;
-	   if(a==0)
-	        return b;
-	    if(a>b)
-	        return gcd(a%b,b);
-	    else
-	        return gcd(a,b%a);
+	    while(A!=B)
+	    {
+	        if(A<B)
+	            B = B-A;
+	        else
+	            A = A-B;
+	    }
+	    return A;
 	      
 	} 
 };
