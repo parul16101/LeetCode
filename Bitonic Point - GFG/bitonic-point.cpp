@@ -10,22 +10,18 @@ class Solution{
 public:
 	
 	int findMaximum(int arr[], int n) {
-	    int l=0, h=n-1;
+	    int low = 0, high = n-1;
 	    
-	    while(l<=h)
+	    while(low<=high)
 	    {
-	       int m = (l+h)/2;
+	        int mid = low+(high-low)/2;
 	        
-	       if(m==l && arr[m]>arr[m+1])
-	            return arr[m];
-	       else if (m==h && arr[m-1]<arr[m])
-	            return arr[m];
-	       else if(arr[m-1]<arr[m] && arr[m]>arr[m+1])
-	            return arr[m];
-	       else if(arr[m-1]<arr[m] && arr[m]<arr[m+1])
-	            l = m+1;
-	       else if(arr[m-1]>arr[m] && arr[m]>arr[m+1])
-	            h = m-1;
+	        if((mid==0 || arr[mid-1]<arr[mid]) && (mid==(n-1) || arr[mid]>arr[mid+1]))
+	                return arr[mid];
+	        else if(arr[mid-1]<arr[mid] && arr[mid]<arr[mid+1])
+	                low = mid+1;
+	        else if(arr[mid-1]>arr[mid] && arr[mid]>arr[mid+1])
+	                high = mid-1;
 	    }
 	    return 0;
 	}
